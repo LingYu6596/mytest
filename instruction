@@ -1,0 +1,5 @@
+docker run --gpus all --rm -it winglian/axolotl:main-latest
+
+wget -P examples/llama-3/ https://raw.githubusercontent.com/LingYu6596/mytest/main/qlora.yml
+
+CUDA_VISIBLE_DEVICES="" python -m axolotl.cli.preprocess examples/llama-3/qlora.yml
