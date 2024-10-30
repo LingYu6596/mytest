@@ -3,7 +3,7 @@ model_type: AutoModelForCausalLM
 tokenizer_type: AutoTokenizer
 
 load_in_8bit: false
-load_in_4bit: false  # 禁用 4-bit 量化以避免 bitsandbytes 的 GPU 需求
+load_in_4bit: true  # 設回 True 以滿足 qlora 適配器要求
 strict: false
 
 datasets:
@@ -42,8 +42,8 @@ learning_rate: 0.0002
 
 train_on_inputs: false
 group_by_length: false
-bf16: true  # 啟用 bfloat16 支援
-fp16: false  # 禁用 fp16，以減少精度相關問題
+bf16: false  # 禁用 bf16 以減少與 4-bit 配置的潛在衝突
+fp16: false
 tf32: false
 
 gradient_checkpointing: true
@@ -51,7 +51,7 @@ early_stopping_patience:
 resume_from_checkpoint:
 local_rank:
 logging_steps: 1
-xformers_attention: false  # 關閉 xformers_attention，減少可能的依賴衝突
+xformers_attention: false
 flash_attention: true
 
 warmup_steps: 10
