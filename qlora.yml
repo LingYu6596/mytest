@@ -51,7 +51,7 @@ early_stopping_patience:
 resume_from_checkpoint:
 local_rank:
 logging_steps: 1
-xformers_attention: false  # 如果需要用 flash_attention，xformers_attention 不建議啟用
+xformers_attention: false
 flash_attention: true
 
 warmup_steps: 10
@@ -61,7 +61,7 @@ saves_per_epoch: 1
 debug:
 deepspeed:
 weight_decay: 0.0
-fsdp: false  # 如果不需要使用分布式訓練可設為 false
+fsdp: []  # 修正為空列表
 fsdp_config:
 special_tokens:
   pad_token: "<|end_of_text|>"
