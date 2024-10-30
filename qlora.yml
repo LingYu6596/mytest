@@ -3,7 +3,7 @@ model_type: AutoModelForCausalLM
 tokenizer_type: AutoTokenizer
 
 load_in_8bit: false
-load_in_4bit: true
+load_in_4bit: false  # 禁用 4-bit 量化以避免 bitsandbytes 的 GPU 需求
 strict: false
 
 datasets:
@@ -42,8 +42,8 @@ learning_rate: 0.0002
 
 train_on_inputs: false
 group_by_length: false
-bf16: auto
-fp16: false
+bf16: true  # 啟用 bfloat16 支援
+fp16: false  # 禁用 fp16，以減少精度相關問題
 tf32: false
 
 gradient_checkpointing: true
@@ -51,7 +51,7 @@ early_stopping_patience:
 resume_from_checkpoint:
 local_rank:
 logging_steps: 1
-xformers_attention: false
+xformers_attention: false  # 關閉 xformers_attention，減少可能的依賴衝突
 flash_attention: true
 
 warmup_steps: 10
@@ -61,7 +61,7 @@ saves_per_epoch: 1
 debug:
 deepspeed:
 weight_decay: 0.0
-fsdp: []  # 修正為空列表
+fsdp: []  # 空列表以避免 fsdp 配置錯誤
 fsdp_config:
 special_tokens:
   pad_token: "<|end_of_text|>"
